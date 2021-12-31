@@ -19,7 +19,23 @@ const Login = () => {
     password: "",
   });
   const handleForm = (e) => {
-    
+    if (newUser) {
+      fetch("http://localhost:5000/addUser", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(user),
+      }).then((res) => {
+        console.log(res);
+      });
+    } else {
+      fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(user),
+      }).then((res) => {
+        console.log(res);
+      });
+    }
   };
   const handleInput = (e) => {
     let isFormValid = true;
