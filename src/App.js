@@ -6,6 +6,7 @@ import { createContext, useState } from "react";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Profile from "./Components/Profile/Profile";
 import Login from "./Components/Login/Login";
+import Home from "./Components/Home/Home";
 export const loggedInUser = createContext();
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
             </Route>
 
             <Route exact path="/">
-              <h1>Home</h1>
+              <Home></Home>
             </Route>
             <PrivateRoute path="/profile">
               <Profile></Profile>

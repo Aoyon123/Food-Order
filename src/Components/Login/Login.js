@@ -10,6 +10,7 @@ const Login = () => {
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
   const [newUser, setNewUser] = useState(false);
+  console.log(loginUser);
   const [user, setUser] = useState({
     isLoggedIn: false,
     fullName: "",
@@ -33,7 +34,10 @@ const Login = () => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(user),
       }).then((res) => {
-        console.log(res);
+        console.log("Response", res);
+
+        setLoginUser({ username: user.username, password: user.password });
+        history.replace(from);
       });
     }
   };
@@ -178,18 +182,18 @@ const Login = () => {
             id="newUser"
           />
           {!newUser ? (
-            <div>
+            <div className="haveaccount">
               Don’t have an account?{" "}
               <label htmlFor="newUser">
-                <span className=" "> Create an account</span>{" "}
+                <span className="createaccount"> Create an account</span>{" "}
               </label>
             </div>
           ) : (
-            <div>
+            <div className="lastpart">
               Already have an account?
               <label htmlFor="newUser">
                 {" "}
-                <span className=" "> Login </span>{" "}
+                <span className="logindesign"> Login </span>{" "}
               </label>
             </div>
           )}
