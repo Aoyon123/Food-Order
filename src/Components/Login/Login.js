@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { loggedInUser } from "../../App";
 import "./Login.css";
@@ -9,7 +9,7 @@ const Login = () => {
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
-  const [newUser, setNewUser] = useState(true);
+  const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
     isLoggedIn: false,
     fullName: "",
@@ -18,7 +18,9 @@ const Login = () => {
     username: "",
     password: "",
   });
-  const handleForm = (e) => {};
+  const handleForm = (e) => {
+    
+  };
   const handleInput = (e) => {
     let isFormValid = true;
     if (e.target.name == "fullName") {
@@ -63,35 +65,48 @@ const Login = () => {
   };
   console.log(loginUser);
   return (
-    <div class="form-design">
+    <div className="form-design">
       <div className="m-5">
         <div className="row d-flex justify-content-center ">
-          {newUser ? <h1><span class="signup-design" >Create A New Account</span></h1> : <h1>Login</h1>}
+          {newUser ? (
+            <h1>
+              <span className="signup-design">Create A New Account</span>
+            </h1>
+          ) : (
+            <h1>Login</h1>
+          )}
           <form action="" onSubmit={handleForm} className="form-group">
-            <label htmlFor="fullName">FullName</label>
-            <input
-              type="text"
-              className="form-control"
-              onBlur={handleInput}
-              name="fullName"
-              id="fullName"
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              onBlur={handleInput}
-              name="email"
-              id="email"
-            />
-            <label htmlFor="dateOfBirth">Date of Birth</label>
-            <input
-              type="date"
-              className="form-control"
-              onBlur={handleInput}
-              name="dateOfBirth"
-              id="dateOfBirth"
-            />
+            {newUser && <label htmlFor="fullName">FullName</label>}
+            {newUser && (
+              <input
+                type="text"
+                className="form-control"
+                onBlur={handleInput}
+                name="fullName"
+                id="fullName"
+              />
+            )}
+            {newUser && <label htmlFor="email">Email</label>}
+            {newUser && (
+              <input
+                type="email"
+                className="form-control"
+                onBlur={handleInput}
+                name="email"
+                id="email"
+              />
+            )}
+            {newUser && <label htmlFor="dateOfBirth">Date of Birth</label>}
+            {newUser && (
+              <input
+                type="date"
+                className="form-control"
+                onBlur={handleInput}
+                name="dateOfBirth"
+                id="dateOfBirth"
+              />
+            )}
+
             <label htmlFor="username">Username</label>
             <input
               type="text"
@@ -100,7 +115,7 @@ const Login = () => {
               name="username"
               id="username"
             />
-            <div class="password-design">
+            <div className="password-design">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -110,11 +125,58 @@ const Login = () => {
                 id="password"
               />
             </div>
-
-            <div class="submit-button">
-              <input type="submit" className="btn-primary" value="Submit" />
+            {!newUser && (
+              <input type="checkbox" name="remember" id="remember" />
+            )}
+            {!newUser && (
+              <label htmlFor="remember" className="m-3">
+                {" "}
+                Remember Me
+              </label>
+            )}
+            {!newUser && (
+              <Link to="/forgot" className="m-3">
+                Forgot Password
+              </Link>
+            )}
+            <div className="submit-button">
+              <input
+                type="submit"
+                className="btn-primary"
+                value={newUser ? "Create an Account" : "Login"}
+              />
             </div>
           </form>
+          <input
+            style={{ display: "none" }}
+            type="checkbox"
+            onChange={() => setNewUser(!newUser)}
+            name="newUser"
+            id="newUser"
+          />
+          <input
+            style={{ display: "none" }}
+            type="checkbox"
+            onChange={() => setNewUser(!newUser)}
+            name="newUser"
+            id="newUser"
+          />
+          {!newUser ? (
+            <div>
+              Don’t have an account?{" "}
+              <label htmlFor="newUser">
+                <span className=" "> Create an account</span>{" "}
+              </label>
+            </div>
+          ) : (
+            <div>
+              Already have an account?
+              <label htmlFor="newUser">
+                {" "}
+                <span className=" "> Login </span>{" "}
+              </label>
+            </div>
+          )}
         </div>
       </div>
     </div>
