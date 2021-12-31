@@ -1,0 +1,21 @@
+.form-design {
+  width: 50%;
+  height: 50%;
+  margin-left: 31%;
+  margin-right: 55%;
+  padding-left: 20px;
+  padding-right: 8px;
+  border-radius: 25px;
+  box-shadow: 5px 10px 10px 10px gray;
+}
+
+.password-design {
+  margin-bottom: 25px;
+}
+.submit-button {
+  margin-bottom: 10px;
+}
+
+.signup-design {
+  color: orangered;
+}

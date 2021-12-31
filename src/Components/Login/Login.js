@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { loggedInUser } from "../../App";
+import "./Login.css";
 
 const Login = () => {
   const [loginUser, setLoginUser] = useContext(loggedInUser);
@@ -62,52 +63,59 @@ const Login = () => {
   };
   console.log(loginUser);
   return (
-    <div className="m-5">
-      <div className="row d-flex justify-content-center ">
-        {newUser ? <h1>create an new account</h1> : <h1>Login</h1>}
-        <form action="" onSubmit={handleForm} className="form-group">
-          <label htmlFor="fullName">FullName</label>
-          <input
-            type="text"
-            className="form-control"
-            onBlur={handleInput}
-            name="fullName"
-            id="fullName"
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            className="form-control"
-            onBlur={handleInput}
-            name="email"
-            id="email"
-          />
-          <label htmlFor="dateOfBirth">Date of Birth</label>
-          <input
-            type="date"
-            className="form-control"
-            onBlur={handleInput}
-            name="dateOfBirth"
-            id="dateOfBirth"
-          />
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            className="form-control"
-            onBlur={handleInput}
-            name="username"
-            id="username"
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            onBlur={handleInput}
-            name="password"
-            id="password"
-          />
-          <input type="submit" className="btn-primary" value="Submit" />
-        </form>
+    <div class="form-design">
+      <div className="m-5">
+        <div className="row d-flex justify-content-center ">
+          {newUser ? <h1><span class="signup-design" >Create A New Account</span></h1> : <h1>Login</h1>}
+          <form action="" onSubmit={handleForm} className="form-group">
+            <label htmlFor="fullName">FullName</label>
+            <input
+              type="text"
+              className="form-control"
+              onBlur={handleInput}
+              name="fullName"
+              id="fullName"
+            />
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              onBlur={handleInput}
+              name="email"
+              id="email"
+            />
+            <label htmlFor="dateOfBirth">Date of Birth</label>
+            <input
+              type="date"
+              className="form-control"
+              onBlur={handleInput}
+              name="dateOfBirth"
+              id="dateOfBirth"
+            />
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              onBlur={handleInput}
+              name="username"
+              id="username"
+            />
+            <div class="password-design">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                onBlur={handleInput}
+                name="password"
+                id="password"
+              />
+            </div>
+
+            <div class="submit-button">
+              <input type="submit" className="btn-primary" value="Submit" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
