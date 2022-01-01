@@ -57,14 +57,14 @@ const Home = () => {
             </a>
           </div>
           <div className="upper-portion-right">
-            <img src="../../images/female/Group 8425.png" alt="" />
+            <img src="../../images/female/Group8425.png" alt="" />
           </div>
         </div>
       </section>
       <section className="second-top">
         <div className="middle-portion">
           <div className="upper-portion-right">
-            <img src="../../images/female/Person Image.png" alt="" />
+            <img src="../../images/female/PersonImage.png" alt="" />
           </div>
           <div className="upper-portion-left">
             <h2>About Me</h2>

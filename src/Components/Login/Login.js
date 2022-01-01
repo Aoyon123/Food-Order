@@ -1,14 +1,23 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import firebase from "firebase/app";
+
+import "firebase/auth";
+import firebaseConfig from "./firebase.config";
 import { useHistory } from "react-router-dom";
 import { loggedInUser } from "../../App";
 import "./Login.css";
+import { Button } from "bootstrap";
 
 const Login = () => {
   const [loginUser, setLoginUser] = useContext(loggedInUser);
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const provider = new firebase.auth.GoogleAuthProvider();
   const [newUser, setNewUser] = useState(false);
   console.log(loginUser);
   const [user, setUser] = useState({
@@ -20,6 +29,7 @@ const Login = () => {
     password: "",
   });
   const handleForm = (e) => {
+    e.preventDefault();
     if (newUser) {
       fetch("http://localhost:5000/addUser", {
         method: "POST",
@@ -84,6 +94,23 @@ const Login = () => {
     return false;
   };
   console.log(loginUser);
+  const handleGoogleSignIn = () => {
+    // firebase.initializeApp(firebaseConfig)
+    firebase.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+            const { displayName, email } = result.user;
+            const signedInUser = {
+                name: displayName,
+                email: email
+            }
+            setLoginUser(signedInUser);
+            history.replace(from)
+        }).catch((error) => {
+            var errorMessage = error.message;
+            console.log(errorMessage)
+        });
+}
   return (
     <div className="form-design">
       <div className="m-5">
@@ -104,6 +131,7 @@ const Login = () => {
                 onBlur={handleInput}
                 name="fullName"
                 id="fullName"
+                required
               />
             )}
             {newUser && <label htmlFor="email">Email</label>}
@@ -114,6 +142,7 @@ const Login = () => {
                 onBlur={handleInput}
                 name="email"
                 id="email"
+                required
               />
             )}
             {newUser && <label htmlFor="dateOfBirth">Date of Birth</label>}
@@ -124,6 +153,7 @@ const Login = () => {
                 onBlur={handleInput}
                 name="dateOfBirth"
                 id="dateOfBirth"
+                required
               />
             )}
 
@@ -134,6 +164,7 @@ const Login = () => {
               onBlur={handleInput}
               name="username"
               id="username"
+              required
             />
             <div className="password-design">
               <label htmlFor="password">Password</label>
@@ -143,6 +174,7 @@ const Login = () => {
                 onBlur={handleInput}
                 name="password"
                 id="password"
+                required
               />
             </div>
             {!newUser && (
@@ -199,6 +231,10 @@ const Login = () => {
           )}
         </div>
       </div>
+      <div className="row d-flex justify-content-center" >
+
+                <Button onClick={handleGoogleSignIn} className="bg-light text-dark m-4 p-3"> <img style={{width: "40px"}} src="https://icons-for-free.com/iconfiles/png/512/google-1320568243143037383.png" alt="" className="ml-2 mr-5"/> <span className="mr-5 ml-3 font-weight-bold">Continue with Google</span> </Button>
+            </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Profile from "./Components/Profile/Profile";
 import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
+import Forgot from "./Components/Forgot/Forgot";
 export const loggedInUser = createContext();
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
             </PrivateRoute>
             <Route path="/login">
               <Login></Login>
+            </Route>
+            <Route path="/Forgot">
+              <Forgot></Forgot>
             </Route>
           </Switch>
         </div>
