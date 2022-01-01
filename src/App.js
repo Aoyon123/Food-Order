@@ -8,6 +8,8 @@ import Profile from "./Components/Profile/Profile";
 import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
 import Forgot from "./Components/Forgot/Forgot";
+import initializeAuthentication from "./Components/Login/firebase.initialize";
+initializeAuthentication();
 export const loggedInUser = createContext();
 
 function App() {

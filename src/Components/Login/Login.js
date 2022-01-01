@@ -1,23 +1,26 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import firebase from "firebase/app";
+import { initializeApp } from "firebase/app";
 
-import "firebase/auth";
-import firebaseConfig from "./firebase.config";
+//import { getAuth, signInWithProvider, GoogleAuthProvider } from "firebase/auth";
+//import firebaseConfig from "./firebase.config";
+
 import { useHistory } from "react-router-dom";
 import { loggedInUser } from "../../App";
 import "./Login.css";
 import { Button } from "bootstrap";
-
+import initializeAuthentication from "./firebase.initialize";
+initializeAuthentication();
+initializeApp();
 const Login = () => {
   const [loginUser, setLoginUser] = useContext(loggedInUser);
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
-  if (firebase.apps.length === 0) {
-    firebase.initializeApp(firebaseConfig);
-  }
-  const provider = new firebase.auth.GoogleAuthProvider();
+  // if (firebase.apps.length === 0) {
+  //   firebase.initializeApp(firebaseConfig);
+  // }
+  //const provider = new GoogleAuthProvider();
   const [newUser, setNewUser] = useState(false);
   console.log(loginUser);
   const [user, setUser] = useState({
@@ -94,23 +97,25 @@ const Login = () => {
     return false;
   };
   console.log(loginUser);
-  const handleGoogleSignIn = () => {
-    // firebase.initializeApp(firebaseConfig)
-    firebase.auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-            const { displayName, email } = result.user;
-            const signedInUser = {
-                name: displayName,
-                email: email
-            }
-            setLoginUser(signedInUser);
-            history.replace(from)
-        }).catch((error) => {
-            var errorMessage = error.message;
-            console.log(errorMessage)
-        });
-}
+  // const handleGoogleSignIn = () => {
+  //   // firebase.initializeApp(firebaseConfig)
+  //   firebase
+  //     .auth()
+  //     .signInWithPopup(provider)
+  //     .then((result) => {
+  //       const { displayName, email } = result.user;
+  //       const signedInUser = {
+  //         name: displayName,
+  //         email: email,
+  //       };
+  //       setLoginUser(signedInUser);
+  //       history.replace(from);
+  //     })
+  //     .catch((error) => {
+  //       var errorMessage = error.message;
+  //       console.log(errorMessage);
+  //     });
+  // };
   return (
     <div className="form-design">
       <div className="m-5">
@@ -231,10 +236,24 @@ const Login = () => {
           )}
         </div>
       </div>
-      <div className="row d-flex justify-content-center" >
 
-                <Button onClick={handleGoogleSignIn} className="bg-light text-dark m-4 p-3"> <img style={{width: "40px"}} src="https://icons-for-free.com/iconfiles/png/512/google-1320568243143037383.png" alt="" className="ml-2 mr-5"/> <span className="mr-5 ml-3 font-weight-bold">Continue with Google</span> </Button>
-            </div>
+      <div className="">
+        <Button
+          // onClick={handleGoogleSignIn}
+          className="bg-light text-dark m-4 p-3"
+        >
+          {" "}
+          <img
+            style={{ width: "40px" }}
+            src="https://icons-for-free.com/iconfiles/png/512/google-1320568243143037383.png"
+            alt=""
+            className="ml-2 mr-5"
+          />{" "}
+          <span className="mr-5 ml-3 font-weight-bold">
+            Continue with Google
+          </span>{" "}
+        </Button>
+      </div>
     </div>
   );
 };
